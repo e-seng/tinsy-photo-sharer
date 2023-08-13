@@ -51,6 +51,29 @@ function sendError(response, code, reason) {
   response.end();
 }
 
+function getFile(pathname, response) {
+  let filepath = WEB_ROOT + (pathname.slice(-1)[0] === '/' ? pathname + "index.html" : pathname);
+
+  if(!fs.existsSync(filepath)) {
+    sendError(response, 404, "the file you were looking for could not be found");
+    return;
+  }
+
+  fs.readFile(filepath, (err, data) => {
+    if(err) {
+      sendError(response, 500, `something actually went wrong. here's the error:
+      ${err}`)
+      return;
+    }
+
+    response.writeHead(200, {
+      "Content-Type": CONTENT_TYPE_MAP[filepath.split('.').slice(-1)[0]],
+    });
+    response.write(data);
+    response.end();
+  });
+}
+
 function onRequest(request, response) {
   let reqBody = "";
   let reqUrl = new URL(request.url, WEB_URL);
@@ -60,7 +83,13 @@ function onRequest(request, response) {
   });
 
   request.on("end", () => {
-    sendError(response, 418, "i am a teapot and the site is barely started");
+    switch(request.method) {
+      case("GET"):
+        getFile(reqUrl.pathname, response);
+        break;
+      default:
+        sendError(response, 501, "method not implemented");
+    }
   });
 
   response.on("close", () => {
