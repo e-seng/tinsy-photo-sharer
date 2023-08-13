@@ -1,0 +1,19 @@
+{
+  "name": "temp-photo-hoster",
+  "version": "1.0.0",
+  "description": "A small website to host large images for friends to download!",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "keywords": [
+    "image-sharing",
+    "website",
+    "small-project"
+  ],
+  "author": "e-seng",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
