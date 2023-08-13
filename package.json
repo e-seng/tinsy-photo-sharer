@@ -1,5 +1,5 @@
 {
-  "name": "temp-photo-hoster",
+  "name": "tinsy-photo-sharer",
   "version": "1.0.0",
   "description": "A small website to host large images for friends to download!",
   "main": "index.js",
