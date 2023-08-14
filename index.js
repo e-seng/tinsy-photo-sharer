@@ -99,7 +99,7 @@ function onRequest(request, response) {
                          response,);
           break;
         default:
-          getFile(reqUrl.pathname, response);
+          getFile(decodeURIComponent(reqUrl.pathname), response);
       }
     } else {
       sendError(response, 501, "method not implemented");
