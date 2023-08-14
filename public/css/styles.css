@@ -11,12 +11,16 @@ body * {
   margin: 0;
 }
 
+body {
+  padding: 0 1rem;
+}
+
 #photos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--grid-size), 1fr));
   grid-gap: 1rem;
   place-items: center;
-  margin: 1rem;
+  margin: 1rem 0;
 }
 
 #photos > a {
@@ -41,6 +45,6 @@ body * {
 }
 
 #photos img {
-  max-width: 110%;
-  max-height: 110%;
+  max-width: 140%;
+  max-height: 140%;
 }

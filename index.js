@@ -67,7 +67,7 @@ function getFile(pathname, response) {
     }
 
     response.writeHead(200, {
-      "Content-Type": CONTENT_TYPE_MAP[filepath.split('.').slice(-1)[0]],
+      "Content-Type": CONTENT_TYPE_MAP[filepath.split('.').slice(-1)[0].toLowerCase()],
     });
     response.write(data);
     response.end();
