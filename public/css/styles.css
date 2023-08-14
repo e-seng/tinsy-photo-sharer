@@ -2,6 +2,11 @@
   font-family: "Georgia", serif;
   font-size: 16px;
   --grid-size: 20rem;
+
+  --background: #111;
+  --font-color: #eee;
+
+  color: var(--font-color);
 }
 
 body,
@@ -13,6 +18,7 @@ body * {
 
 body {
   padding: 0 1rem;
+  background-color: var(--background);
 }
 
 #photos {
@@ -24,8 +30,9 @@ body {
 }
 
 #photos > a {
-  max-width: 100%;
   max-height: var(--grid-size);
+  min-height: 100%;
+  min-width: 100%;
   overflow: hidden;
 
   display: flex;
@@ -38,13 +45,21 @@ body {
 
   filter: blur(0);
   transition: filter 250ms ease-in-out;
+
+  box-shadow: 0px 0px 100px #ffffff20;
+}
+
+#photos img {
+  max-width: 140%;
+  max-height: 140%;
+  opacity: 1;
+  transition: opacity 250ms ease-in-out;
 }
 
 #photos a.loading {
   filter: blur(10px);
 }
 
-#photos img {
-  max-width: 140%;
-  max-height: 140%;
+#photos a.loading img {
+  opacity: 0;
 }
