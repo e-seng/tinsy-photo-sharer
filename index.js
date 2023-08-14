@@ -74,10 +74,21 @@ function getFile(pathname, response) {
 }
 
 function getPhotoSubset(start, end, response) {
-  let photos = {};
+  let photos = [];
+  let photoTypes = [
+    "svg",
+    "png",
+    "jpg",
+    "jpeg",
+    "webp",
+  ]
+  fs.readdirSync(WEB_ROOT+"/images/full/").slice(start,end).forEach(photo => {
+    if(!photoTypes.includes(photo.toLowerCase().split('.').slice(-1)[0])) return;
+    photos.push(photo);
+  });
 
   response.writeHead(200, {"Content-Type": CONTENT_TYPE_MAP["json"]});
-  response.write(JSON.stringify(fs.readdirSync(WEB_ROOT+"/images/full/").slice(start,end)));
+  response.write(JSON.stringify(photos));
   response.end();
 }
 
