@@ -9,7 +9,7 @@ const fs = require("fs");
 const PORT = process.env.APP_PORT || 8080;
 const WEB_ROOT = process.env.APP_ROOT || "./public";
 const WEB_URL = process.env.APP_URL || "http://localhost";
-const PHOTO_ROOT = process.env.PHOTO_ROOT || "./images";
+const PHOTO_ROOT = process.env.PHOTO_ROOT || "./public/images";
 
 const CONTENT_TYPE_MAP = {
   "html": "text/html",
@@ -74,6 +74,14 @@ function getFile(pathname, response) {
   });
 }
 
+function getPhotoSubset(start, end, response) {
+  let photos = {};
+
+  response.writeHead(200, {"Content-Type": CONTENT_TYPE_MAP["json"]});
+  response.write(JSON.stringify(fs.readdirSync(PHOTO_ROOT).slice(start,end)));
+  response.end();
+}
+
 function onRequest(request, response) {
   let reqBody = "";
   let reqUrl = new URL(request.url, WEB_URL);
@@ -83,12 +91,18 @@ function onRequest(request, response) {
   });
 
   request.on("end", () => {
-    switch(request.method) {
-      case("GET"):
-        getFile(reqUrl.pathname, response);
-        break;
-      default:
-        sendError(response, 501, "method not implemented");
+    if(request.method === "GET") {
+      switch(reqUrl.pathname){
+        case("/api/v0/images"):
+          getPhotoSubset(reqUrl.searchParams.get("start"),
+                         reqUrl.searchParams.get("end"),
+                         response,);
+          break;
+        default:
+          getFile(reqUrl.pathname, response);
+      }
+    } else {
+      sendError(response, 501, "method not implemented");
     }
   });
 
