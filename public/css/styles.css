@@ -19,13 +19,25 @@ body * {
   margin: 1rem;
 }
 
-#photos > * {
+#photos > a {
   max-width: 100%;
   max-height: var(--grid-size);
   overflow: hidden;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  filter: blur(0);
+  transition: filter 250ms ease-in-out;
+}
+
+#photos a.loading {
+  filter: blur(10px);
 }
 
 #photos img {
