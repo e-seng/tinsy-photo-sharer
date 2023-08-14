@@ -4,6 +4,7 @@
   "description": "A small website to host large images for friends to download!",
   "main": "index.js",
   "scripts": {
+    "serve": "node index.js",
     "test": "nodemon index.js"
   },
   "keywords": [

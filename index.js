@@ -9,7 +9,6 @@ const fs = require("fs");
 const PORT = process.env.APP_PORT || 8080;
 const WEB_ROOT = process.env.APP_ROOT || "./public";
 const WEB_URL = process.env.APP_URL || "http://localhost";
-const PHOTO_ROOT = process.env.PHOTO_ROOT || "./public/images";
 
 const CONTENT_TYPE_MAP = {
   "html": "text/html",
@@ -78,7 +77,7 @@ function getPhotoSubset(start, end, response) {
   let photos = {};
 
   response.writeHead(200, {"Content-Type": CONTENT_TYPE_MAP["json"]});
-  response.write(JSON.stringify(fs.readdirSync(PHOTO_ROOT+"/full/").slice(start,end)));
+  response.write(JSON.stringify(fs.readdirSync(WEB_ROOT+"/images/full/").slice(start,end)));
   response.end();
 }
 
@@ -116,4 +115,4 @@ function onRequest(request, response) {
 }
 
 http.createServer(onRequest).listen(PORT);
-console.log(`[${new Date().toISOString()}] server started on port "${PORT}" and web root "${WEB_ROOT}" hosting images from "${PHOTO_ROOT}"`);
+console.log(`[${new Date().toISOString()}] server started on port "${PORT}" and web root "${WEB_ROOT}"`);
