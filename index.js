@@ -78,7 +78,7 @@ function getPhotoSubset(start, end, response) {
   let photos = {};
 
   response.writeHead(200, {"Content-Type": CONTENT_TYPE_MAP["json"]});
-  response.write(JSON.stringify(fs.readdirSync(PHOTO_ROOT).slice(start,end)));
+  response.write(JSON.stringify(fs.readdirSync(PHOTO_ROOT+"/full/").slice(start,end)));
   response.end();
 }
 
