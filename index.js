@@ -128,4 +128,4 @@ function onRequest(request, response) {
 }
 
 http.createServer(onRequest).listen(PORT);
-console.log(`[${new Date().toISOString()}] server started on ${networkInterfaces()["wlan0"][0]["address"]}:${PORT}" and web root "${WEB_ROOT}"`);
+console.log(`[${new Date().toISOString()}] server started on http://${networkInterfaces()["wlan0"][0]["address"]}:${PORT} and web root "${WEB_ROOT}"`);
