@@ -1,0 +1,13 @@
+services:
+  webserver:
+    image: ubuntu:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/tmp/thumbnail-cache/:/var/www/public/images/thumbnails"
+      - "/tmp/preview-cache/:/var/www/public/images/preview"
+      # modify this one:
+      - "~/Documents/images/vancouver2023/:/mnt/photos"
