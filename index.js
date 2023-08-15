@@ -10,6 +10,8 @@ const PORT = process.env.APP_PORT || 8080;
 const WEB_ROOT = process.env.APP_ROOT || "./public";
 const WEB_URL = process.env.APP_URL || "http://localhost";
 
+const { networkInterfaces } = require("os");
+
 const CONTENT_TYPE_MAP = {
   "html": "text/html",
   "css": "text/css",
@@ -126,4 +128,4 @@ function onRequest(request, response) {
 }
 
 http.createServer(onRequest).listen(PORT);
-console.log(`[${new Date().toISOString()}] server started on port "${PORT}" and web root "${WEB_ROOT}"`);
+console.log(`[${new Date().toISOString()}] server started on ${networkInterfaces()["wlan0"][0]["address"]}:${PORT}" and web root "${WEB_ROOT}"`);
