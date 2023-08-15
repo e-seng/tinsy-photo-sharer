@@ -24,11 +24,12 @@ window.addEventListener("load", () => {
       let a = document.createElement("a");
       a.setAttribute("href", `/images/full/${image}`);
       a.setAttribute("target", "_blank");
-      a.setAttribute("style", `background-image: url("images/thumbnails/${image}")`);
+      a.setAttribute("style", `background-image: url("/images/thumbnails/${image}")`);
+      a.setAttribute("loading", "lazy");
       a.classList.add("loading");
       
       let img = document.createElement("img");
-      img.setAttribute("src", `/images/full/${image}`);
+      img.setAttribute("src", `/images/preview/${image}`);
       img.setAttribute("loading", "lazy");
 
       if(img.complete) {

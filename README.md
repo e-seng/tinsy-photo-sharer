@@ -16,5 +16,5 @@ locally... and I like developing things I guess.
 
 ```bash
 $ docker build -t tinsy-photo-sharer.
-$ docker run -v <directory with photos>:/var/www/public/images/full -v <place to cache thumbnails>:/var/www/public/images/thumbnails -p 8080:8080 --rm --name tinsy-photo-sharer tinsy-photo-sharer
+$ docker run -v <directory with photos>:/mnt/photos -p 8080:8080 --rm --name tinsy-photo-sharer tinsy-photo-sharer
 ```
