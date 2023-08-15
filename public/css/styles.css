@@ -21,6 +21,10 @@ body {
   background-color: var(--background);
 }
 
+#main {
+  min-height: 90vh;
+}
+
 #photos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--grid-size), 1fr));
@@ -50,8 +54,9 @@ body {
 }
 
 #photos img {
-  max-width: 140%;
-  max-height: 140%;
+  min-width: 130%;
+  min-height: 130%;
+  max-width: 200%;
   opacity: 1;
   transition: opacity 250ms ease-in-out;
 }
