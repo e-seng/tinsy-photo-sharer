@@ -50,7 +50,22 @@ window.addEventListener("load", () => {
 
       a.addEventListener("click", (evt) => {
         evt.preventDefault();
-        document.querySelector("dialog img").src = a.href;
+
+        dialog.setAttribute("style", `background-image: ${a.style.backgroundImage};`);
+        dialog.classList.add("loading");
+
+        let img = dialog.querySelector("img");
+        img.setAttribute("src", a.href);
+        img.setAttribute("loading", "lazy");
+
+        if(img.complete) {
+          img.parentElement.classList.remove("loading");
+        } else {
+          img.addEventListener("load", (evt) => {
+            evt.currentTarget.parentElement.classList.remove("loading")
+          });
+        }
+
         dialog.showModal();
       });
 

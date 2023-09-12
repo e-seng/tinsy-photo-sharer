@@ -53,6 +53,30 @@ body {
   box-shadow: 0px 0px 100px #ffffff20;
 }
 
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  overflow: hidden;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  filter: blur(0);
+  transition: filter 250ms ease-in-out;
+}
+
+dialog::backdrop {
+  backdrop-filter: blur(10px);
+}
+
+#photos a.loading,
+dialog.loading {
+  filter: blur(10px);
+}
+
 #photos img {
   min-width: 130%;
   min-height: 130%;
@@ -61,32 +85,20 @@ body {
   transition: opacity 250ms ease-in-out;
 }
 
-#photos a.loading {
-  filter: blur(10px);
-}
-
-#photos a.loading img {
-  opacity: 0;
-}
-
-dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  overflow: hidden;
-}
-
-dialog::backdrop {
-  backdrop-filter: blur(10px);
-}
-
 dialog img{
   display: none;
   max-height: 80vh;
   max-width: 80vw;
+
+  transition: opacity 500ms ease-out;
 }
 
 dialog[open] img {
   display: block;
+  opacity: 1;
+}
+
+#photos a.loading img,
+dialog.loading img{
+  opacity: 0;
 }
