@@ -35,7 +35,9 @@ ADD tools/entrypoint.sh /
 ADD tools/generate_images.sh /
 
 RUN chown -R node:node /var/www/* /home/node;\
-    chmod +s /generate_images.sh
+    chown root:root /generate_images.sh;\
+    echo "%node ALL=(ALL:ALL) NOPASSWD:SETENV: /generate_images.sh" >> /etc/sudoers;\
+    chmod +x /generate_images.sh
 
 USER node
 

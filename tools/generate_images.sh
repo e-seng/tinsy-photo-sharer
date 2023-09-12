@@ -2,6 +2,7 @@
 # copy files from volume
 echo "[*] copying from volume..."
 cp -r /mnt/photos/* ${APP_ROOT}/images/full
+echo "[*] finished copying!"
 
 # orient images properly
 # for image in `ls ${APP_ROOT}/images/full`; do

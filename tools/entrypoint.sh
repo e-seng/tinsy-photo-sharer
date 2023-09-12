@@ -1,4 +1,5 @@
 #!/bin/bash
+export APP_ROOT=$APP_ROOT
+sudo -E /generate_images.sh &
 source /home/node/.bashrc
-bash /generate_images.sh &
 exec npm run serve

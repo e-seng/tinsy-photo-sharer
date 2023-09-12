@@ -1,6 +1,5 @@
 services:
   webserver:
-    image: ubuntu:latest
     build:
       context: .
       dockerfile: Dockerfile
