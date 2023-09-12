@@ -1,4 +1,12 @@
 window.addEventListener("load", () => {
+  // close the dialog if it is directly clicked
+  let dialog = document.querySelector("dialog");
+  dialog.addEventListener("click", (evt) => {
+    if(evt.target.nodeName !== "DIALOG") return;
+    console.log("clicked", evt.target);
+    dialog.close('');
+  });
+
   let offset = 0;
   let loadCount = 10;
   let loading = false;
@@ -39,6 +47,12 @@ window.addEventListener("load", () => {
           evt.currentTarget.parentElement.classList.remove("loading")
         });
       }
+
+      a.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        document.querySelector("dialog img").src = a.href;
+        dialog.showModal();
+      });
 
       a.appendChild(img);
       photoDiv.appendChild(a);
