@@ -4,6 +4,8 @@ window.addEventListener("load", () => {
   dialog.addEventListener("click", (evt) => {
     if(evt.target.nodeName !== "DIALOG") return;
     console.log("clicked", evt.target);
+    dialog.querySelector("div").classList.remove("loaded");
+    dialog.querySelector("img").setAttribute("src", "");
     dialog.close('');
   });
 
@@ -20,6 +22,24 @@ window.addEventListener("load", () => {
     observer.observe(document.querySelector("footer"));
   }, 100); // */
 
+  function viewImage(image, target) {
+    let dialogDiv = dialog.querySelector("div");
+    dialogDiv.setAttribute("style", `background-image: url("/images/thumbnails/${image}");`);
+
+    let img = dialog.querySelector("img");
+    img.setAttribute("src", `/images/full/${image}`);
+
+    if(img.complete) {
+      img.parentElement.classList.add("loaded");
+    } else {
+      img.addEventListener("load", (evt) => {
+        evt.currentTarget.parentElement.classList.add("loaded")
+      });
+    }
+
+    dialog.showModal();
+  }
+
   function addImages(images) {
     if(images.length === 0) {
       clearInterval(screenChecker);
@@ -31,6 +51,7 @@ window.addEventListener("load", () => {
     for(var image of images) {
       let a = document.createElement("a");
       a.setAttribute("href", `/images/full/${image}`);
+      a.setAttribute("value-img", image);
       a.setAttribute("target", "_blank");
       a.setAttribute("style", `background-image: url("/images/thumbnails/${image}")`);
       a.setAttribute("loading", "lazy");
@@ -50,23 +71,7 @@ window.addEventListener("load", () => {
 
       a.addEventListener("click", (evt) => {
         evt.preventDefault();
-
-        dialog.setAttribute("style", `background-image: ${a.style.backgroundImage};`);
-        dialog.classList.add("loading");
-
-        let img = dialog.querySelector("img");
-        img.setAttribute("src", a.href);
-        img.setAttribute("loading", "lazy");
-
-        if(img.complete) {
-          img.parentElement.classList.remove("loading");
-        } else {
-          img.addEventListener("load", (evt) => {
-            evt.currentTarget.parentElement.classList.remove("loading")
-          });
-        }
-
-        dialog.showModal();
+        viewImage(a.getAttribute("value-img"), evt.target);
       });
 
       a.appendChild(img);

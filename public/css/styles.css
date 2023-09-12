@@ -53,28 +53,41 @@ body {
   box-shadow: 0px 0px 100px #ffffff20;
 }
 
+#photos > a.loading {
+  filter: blur(10px) brightness(0.4);
+}
+
 dialog {
   position: fixed;
-  top: 50%;
+  top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  overflow: hidden;
 
+  background-color: white;
+  transition: top 500ms cubic-bezier(.42,0,0,.97);
+}
+
+dialog[open] {
+  padding: 2vmin;
+  padding-bottom: 10vmin;
+  top: 50%;
+}
+
+dialog div {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 
-  filter: blur(0);
-  transition: filter 250ms ease-in-out;
+  filter: blur(2px) brightness(0.2);
+}
+
+dialog div.loaded {
+  filter: blur(0) brightness(1);
+  transition: filter 1s ease-in-out;
 }
 
 dialog::backdrop {
   backdrop-filter: blur(10px);
-}
-
-#photos a.loading,
-dialog.loading {
-  filter: blur(10px);
 }
 
 #photos img {
@@ -95,10 +108,13 @@ dialog img{
 
 dialog[open] img {
   display: block;
+}
+
+dialog[open] div.loaded img {
   opacity: 1;
 }
 
 #photos a.loading img,
-dialog.loading img{
+dialog div img {
   opacity: 0;
 }
