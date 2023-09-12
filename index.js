@@ -127,5 +127,26 @@ function onRequest(request, response) {
   });
 }
 
+function getIPAddress() {
+  let ipAddr = "";
+  interfaces = networkInterfaces()
+  Object.keys(interfaces).forEach((device) => {
+    // check whether the device is a wireless or ethernet device, or on macos
+    if(!device.includes("lan") && !device.includes("eth") && device !== "en0") return;
+    // here, the device is either a wireless or an ethernet network device
+    let deviceDetails = interfaces[device];
+
+    for(details of deviceDetails) {
+      ipAddr = details["address"];
+
+      // prefer ipv4 ip addresses
+      if(details["family"] !== "IPv4") continue;
+      break;
+    }
+  });
+
+  return ipAddr;
+}
+
 http.createServer(onRequest).listen(PORT);
-console.log(`[${new Date().toISOString()}] server started on http://${networkInterfaces()["wlan0"][0]["address"]}:${PORT} and web root "${WEB_ROOT}"`);
+console.log(`[${new Date().toISOString()}] server started on http://${getIPAddress()}:${PORT} and web root "${WEB_ROOT}"`);
